@@ -1,0 +1,122 @@
+#!/bin/bash
+#PBS -N batch-align-group_20
+#PBS -o ./both-align-results-strict-adv/align-merge-history/group_20.out
+#PBS -e ./both-align-results-strict-adv/align-merge-history/group_20.err
+#PBS -q batch
+#PBS -l nodes=node7:ppn=8
+
+source ~/.bashrc
+conda activate kpn
+
+core_path="/data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/grouped_genes/group_20/"
+
+for NUM in `ls $core_path`
+do
+
+    cd /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/alignment/
+    find ./$NUM/ -type f ! -name "ref.fa" -delete
+
+    bwa index ./$NUM/ref.fa
+    samtools faidx ./$NUM/ref.fa
+    ALT_PATH="/data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/grouped_genes/group_20/${NUM}/"
+
+    for filename in ` ls $ALT_PATH `
+    do
+        bwa mem ./$NUM/ref.fa $ALT_PATH/$filename > ./$NUM/$filename.sam
+        samtools view -@ 8 -b -S ./$NUM/$filename.sam -o ./$NUM/$filename.bam
+        bcftools mpileup -m 1 ./$NUM/$filename.bam --fasta-ref ./$NUM/ref.fa > ./$NUM/$filename.vcf
+        bcftools call ./$NUM/$filename.vcf -c -v --ploidy 1 -o ./$NUM/$filename-n.vcf
+        /data/home/sfwang/software/tabix-0.2.6/bgzip ./$NUM/$filename-n.vcf
+        bcftools index ./$NUM/$filename-n.vcf.gz
+    done
+
+    cd /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/alignment/$NUM/
+    bcftools merge GN06*.vcf.gz -o merge06.vcf
+    bcftools merge GN07*.vcf.gz -o merge07.vcf
+    bcftools merge GN08*.vcf.gz -o merge08.vcf
+    bcftools merge GN09*.vcf.gz -o merge09.vcf
+    bcftools merge GN10*.vcf.gz -o merge10.vcf
+    bcftools merge GN11*.vcf.gz -o merge11.vcf
+    bcftools merge GN12*.vcf.gz -o merge12.vcf
+    bcftools merge GN13*.vcf.gz -o merge13.vcf
+    bcftools merge GN14*.vcf.gz -o merge14.vcf
+    bcftools merge GN15*.vcf.gz -o merge15.vcf
+    bcftools merge GN16*.vcf.gz -o merge16.vcf
+    bcftools merge GN17*.vcf.gz -o merge17.vcf
+    bcftools merge GN18*.vcf.gz -o merge18.vcf
+    bcftools merge GN19*.vcf.gz -o merge19.vcf
+    bcftools merge GN20*.vcf.gz -o merge20.vcf
+    bcftools merge _R*.vcf.gz -o merge_R.vcf
+    bcftools merge GCF*.vcf.gz -o group1.vcf --force-samples
+    bcftools merge GCA_00*.vcf.gz -o group2.vcf --force-samples
+    bcftools merge GCA_02205*.vcf.gz -o group3.vcf --force-samples
+    bcftools merge GCA_02206*.vcf.gz -o group4.vcf --force-samples
+    bcftools merge GCA_02207*.vcf.gz -o group5.vcf --force-samples
+    bcftools merge GCA_02208*.vcf.gz -o group6.vcf --force-samples
+    bcftools merge GCA_02209*.vcf.gz -o group7.vcf --force-samples
+    bcftools merge GCA_02211*.vcf.gz -o group8.vcf --force-samples
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge06.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge07.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge08.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge09.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge10.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge11.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge12.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge13.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge14.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge15.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge16.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge17.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge18.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge19.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge20.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip merge_R.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group1.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group2.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group3.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group4.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group5.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group6.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group7.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip group8.vcf
+    bcftools index merge06.vcf.gz
+    bcftools index merge07.vcf.gz
+    bcftools index merge08.vcf.gz
+    bcftools index merge09.vcf.gz
+    bcftools index merge10.vcf.gz
+    bcftools index merge11.vcf.gz
+    bcftools index merge12.vcf.gz
+    bcftools index merge13.vcf.gz
+    bcftools index merge14.vcf.gz
+    bcftools index merge15.vcf.gz
+    bcftools index merge16.vcf.gz
+    bcftools index merge17.vcf.gz
+    bcftools index merge18.vcf.gz
+    bcftools index merge19.vcf.gz
+    bcftools index merge20.vcf.gz
+    bcftools index merge_R.vcf.gz
+    bcftools index group1.vcf.gz
+    bcftools index group2.vcf.gz
+    bcftools index group3.vcf.gz
+    bcftools index group4.vcf.gz
+    bcftools index group5.vcf.gz
+    bcftools index group6.vcf.gz
+    bcftools index group7.vcf.gz
+    bcftools index group8.vcf.gz
+    bcftools merge merge*.vcf.gz -o final-merged.vcf
+    bcftools merge group*.vcf.gz -o final-group.vcf --force-samples
+    /data/home/sfwang/software/tabix-0.2.6/bgzip final-merged.vcf
+    /data/home/sfwang/software/tabix-0.2.6/bgzip final-group.vcf
+    bcftools index final-merged.vcf.gz
+    bcftools index final-group.vcf.gz
+    bcftools merge final-*.vcf.gz -o merged.vcf --force-samples
+    bcftools norm -f ref.fa -m -any merged.vcf -o merged.normed.vcf
+    bcftools norm -f ref.fa -m -any merged.vcf -Oz -o merged.normed.vcf.gz
+    /data/home/sfwang/software/tabix-0.2.6/tabix -p vcf merged.normed.vcf.gz
+    vg construct -r ref.fa -v merged.normed.vcf.gz > final.normed.vg
+    vg view -d final.normed.vg | dot -Tpng -o final.normed.png
+
+    cp /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/alignment/$NUM/merged.normed.vcf /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/vcf/$NUM.vcf
+    cp /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/alignment/$NUM/final.normed.png /data/home/sfwang/kpn/Panaroo/both-align-results-strict-adv/png/$NUM.png
+
+done
