@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source activate panaroo
+panaroo -i ./*.gff -o ./result/ --clean-mode strict --alignment pan --aligner mafft --core_threshold 0.9 -t 48 --refind_prop_match 0.98 --search_radius 1000
