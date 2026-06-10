@@ -4,7 +4,7 @@ source activate Prokka
 
 prodigal -t prodigal_training_file -c -m -g 11 -p single -q -i GN191724.fa > /dev/null
 
-INIT_PATH="./PATRIC_data/origin_data/genomes"
+INIT_PATH="./genomes"
 OUT_PATH="./annotation"
 
 mkdir -p "$OUT_PATH"
