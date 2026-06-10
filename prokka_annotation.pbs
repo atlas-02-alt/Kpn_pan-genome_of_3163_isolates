@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source activate Prokka
+
+prodigal -t prodigal_training_file -c -m -g 11 -p single -q -i GN191724.fa > /dev/null
+
+INIT_PATH="./PATRIC_data/origin_data/genomes"
+OUT_PATH="./annotation"
+
+mkdir -p "$OUT_PATH"
+
+for file in "$INIT_PATH"/*
+do
+    fileName=$(basename "$file")
+    sample=${fileName%.fa}
+    echo "$sample"
+    prokka --prodigaltf prodigal_training_file --outdir "$OUT_PATH/$sample/" --cpus 32 --prefix goldbacteria --kingdom Bacteria "$file" --force
+done
