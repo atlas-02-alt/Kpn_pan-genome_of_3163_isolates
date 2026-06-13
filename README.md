@@ -6,7 +6,7 @@ This repository contains scripts, trained models, and plotting utilities for a p
 
 ## Directory Guide
 
-- The repository is organized by analysis stage, so each top-level directory represents one major part of the pipeline.
+The repository is organized by analysis stage, so each top-level directory represents one major part of the pipeline.
 
 | Directory | Purpose |
 | --- | --- |
