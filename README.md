@@ -17,7 +17,7 @@ This repository contains scripts, trained models, and plotting utilities for a p
 | `Pan-genome_construction/` | Builds and post-processes the pan-genome, including genome annotation, Panaroo execution, GFF updates, AMR annotation, and gene cluster cleaning of pan-genome outputs. |
 | `Feature_extraction/` | Identifies core-gene variants through single-base-resolution alignment, annotates variants with snpEff, retains non-synonymous variants, and encodes them together with dispensable gene presence/absence into binary feature matrices. |
 | `Feature_selection/` | Screens the full feature set using statistical tests and ranks features based on machine-learning-derived importance scores. |
-| `Candidates_determine_and_model_train/` | Determines candidate features, prepares selected feature matrices, trains models, validates performance, and saves model artifacts. |
+| `Candidates_determine_and_model_train/` | Determines candidate features, prepares selected feature matrices, trains models, tests and validates performance, and saves model artifacts. |
 | `Further_analyzation/` | Performs downstream biological analyses, including candidate-feature prioritization and transposon-associated genomic pattern analysis. |
 | `Plot/` | Contains scripts for generating main and supplementary figures. |
 | `Trained_models/` | Stores serialized trained model artifacts for 17 antimicrobial phenotypes. |
