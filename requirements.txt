@@ -1,0 +1,18 @@
+# Python dependencies used by the analysis, modeling, and plotting scripts.
+# Versions are consolidated from the local Python/conda environments and the
+# cluster conda export in pbs_requirements.
+
+biopython==1.86
+joblib==1.5.2
+matplotlib==3.10.6
+networkx==3.5
+numpy==2.3.5
+openpyxl==3.1.5
+pandas==2.3.3
+scikit-learn==1.7.2
+scipy==1.16.3
+seaborn==0.13.2
+statannotations==0.7.2
+statsmodels==0.14.5
+upsetplot
+xgboost==3.0.0

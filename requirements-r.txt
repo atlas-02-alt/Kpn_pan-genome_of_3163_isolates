@@ -1,0 +1,7 @@
+# R packages used by scripts under Plot/.
+
+data.table
+dplyr
+gggenes
+ggplot2
+pheatmap

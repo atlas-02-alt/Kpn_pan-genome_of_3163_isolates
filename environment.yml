@@ -1,0 +1,57 @@
+name: kpn-pan-genome
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  # Core Python runtime and packages used by Python scripts.
+  - python=3.13
+  - biopython=1.86
+  - joblib=1.5.2
+  - matplotlib=3.10.6
+  - networkx=3.5
+  - numpy=2.3.5
+  - openpyxl=3.1.5
+  - pandas=2.3.3
+  - scikit-learn=1.7.2
+  - scipy=1.16.3
+  - seaborn=0.13.2
+  - statsmodels=0.14.5
+
+  # R packages used by plotting scripts.
+  - r-base
+  - r-data.table
+  - r-dplyr
+  - r-gggenes
+  - r-ggplot2
+  - r-pheatmap
+
+  # Command-line bioinformatics tools referenced by PBS/scripts.
+  # Some versions came from the supplied cluster export; unpinned tools were
+  # referenced by scripts but not versioned in the export.
+  - blast=2.17.0
+  - entrez-direct=24.0
+  - emboss=6.6.0
+  - gffread=0.12.7
+  - vg=1.70.0
+  - abricate
+  - bcftools
+  - bwa
+  - graphviz
+  - htslib
+  - mafft
+  - openjdk
+  - panaroo
+  - prodigal
+  - prokka
+  - rgi
+  - samtools
+  - snpeff
+
+  # Packages available through pip or often installed more reliably via pip.
+  - pip
+  - pip:
+      - gff3tool==2.1.0
+      - statannotations==0.7.2
+      - upsetplot
+      - xgboost==3.0.0
