@@ -27,8 +27,7 @@ dependencies:
   - r-pheatmap
 
   # Command-line bioinformatics tools referenced by PBS/scripts.
-  # Some versions came from the supplied cluster export; unpinned tools were
-  # referenced by scripts but not versioned in the export.
+  # Some versions came from the supplied cluster export.
   - blast=2.17.0
   - entrez-direct=24.0
   - emboss=6.6.0

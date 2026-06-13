@@ -1,6 +1,5 @@
 # Python dependencies used by the analysis, modeling, and plotting scripts.
-# Versions are consolidated from the local Python/conda environments and the
-# cluster conda export in pbs_requirements.
+# Versions are consolidated from the local Python/conda environments.
 
 biopython==1.86
 joblib==1.5.2
