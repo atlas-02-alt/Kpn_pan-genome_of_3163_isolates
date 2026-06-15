@@ -1,7 +1,5 @@
 # Kpn Pan-Genome Analysis of 3,163 Isolates
 
-(Draft version; ReadMe files still under revision)
-
 This repository contains scripts, trained models, and plotting utilities for a pan-genome-based analysis of 3,163 *Klebsiella pneumoniae* isolates. The workflow covers pan-genome construction, feature extraction, feature selection, candidate determination, model training, downstream analysis, and figure generation.
 
 ## Directory Guide
