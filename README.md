@@ -45,9 +45,9 @@ Feature selection by statistical tests and ML-based ranking
       |
       v
 Candidate determination and model training
-      |                         |
-      |                         v
-      |                  Model testing and validation
-      v
-Downstream analysis
+      |                           |
+      v                           |
+Model testing and validation      |
+                                  v
+                          Downstream analysis
 ```
