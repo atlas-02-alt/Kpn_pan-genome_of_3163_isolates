@@ -11,7 +11,8 @@ extract_gn_contigs.py
     Purpose:
         Extract the GN191724 reference contig from each core-gene MSA. If a
         matching reference sequence is not found, the entire MSA is moved to a
-        no-match folder.
+        no-match folder (invalid folder). These no-match core genes won't be
+        used in the downstream analysis.
     Usage:
 
             python extract_gn_contigs.py <msa_dir> <output_contigs_dir> <no_match_dir>
@@ -57,6 +58,4 @@ align-merge.pbs
         the gene reference and merging alignment or variant-calling outputs.
     Usage:
         Edit paths, environment settings, and resource requests for the current
-        cluster, then submit:
-
-            qsub align-merge.pbs
+        cluster, then submit.
