@@ -20,7 +20,7 @@ vcf2matrix.py
         isolate, fills missing isolates with zero rows, filters rare features,
         and replaces AMR-related cluster names using amr_panaroo_dict.json.
     Main inputs:
-        ann_vcf
+        ann_vcf (folder that contains all vcf files annotated by snpEff)
         phenotypes.csv
         amr_panaroo_dict.json
     Main output:
@@ -34,7 +34,7 @@ concat_core_feature_matrix.py
         Concatenate per-gene core-variant feature matrices into one final core
         feature matrix. Feature names are prefixed with the gene name.
     Main inputs:
-        feature_matrix
+        feature_matrix (folder that contains all feature matrices for each core gene)
         phenotypes.csv
     Main output:
         final_core_feature_matrix.csv
@@ -49,7 +49,7 @@ generate_dispensable_fm.py
         mapping exists, and features with too few 1s or too few 0s are reported
         as rare/uninformative.
     Main inputs:
-        dispensable_gene_sequences
+        dispensable_gene_sequences (folder that contains all dispensable genes' sequence files)
         amr_panaroo_dict.json
     Main output:
         final_dispensable_fm.csv
