@@ -5,8 +5,6 @@
 
 This repository contains scripts, trained models, and plotting utilities for a pan-genome-based analysis of 3,163 *Klebsiella pneumoniae* isolates. The workflow covers pan-genome construction, feature extraction, feature selection, candidate determination, model training, downstream analysis, and figure generation.
 
-Usage documentation for each script will be provided in the README file in the same folder.
-
 ## Directory Guide
 
 The repository is organized by analysis stage, so each top-level directory represents one major part of the pipeline.
@@ -20,6 +18,8 @@ The repository is organized by analysis stage, so each top-level directory repre
 | `Further_analyzation/` | Performs downstream biological analyses, including candidate-feature prioritization and transposon-associated genomic pattern analysis. |
 | `Plot/` | Contains scripts for generating main and supplementary figures. |
 | `Trained_models/` | Stores serialized trained model artifacts for 17 antimicrobial phenotypes. |
+
+Usage documentation for each script will be provided in the README file in the same folder.
 
 ## Workflow Overview
 
