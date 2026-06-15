@@ -19,6 +19,8 @@ The repository is organized by analysis stage, so each top-level directory repre
 | `Plot/` | Contains scripts for generating main and supplementary figures. |
 | `Trained_models/` | Stores serialized trained model artifacts for 17 antimicrobial phenotypes. |
 
+## Code Guide
+
 Usage documentation for each script will be provided in the README file in the same folder.
 
 ## Workflow Overview
