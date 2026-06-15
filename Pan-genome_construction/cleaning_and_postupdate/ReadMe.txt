@@ -11,7 +11,7 @@ Recommended workflow
 1. Remove gap or non-ATCG characters from aligned gene sequences if needed.
 2. Summarize MSA length distributions.
 3. Filter gene clusters with serious reference/mode length differences.
-4. Move invalid MSA files out of the analysis set.
+4. Move invalid MSA files out of the analysis set, which don't exist in the reference genome.
 5. Remove remaining length outlier contigs.
 6. Classify cleaned genes as core, dispensable, or rare.
 
