@@ -25,7 +25,7 @@ AMR_annotate_fasta.pbs
         both_card_results.tab
         both_resfinder_results.tab
     Usage:
-        Activate the AMR_ann environment and run
+        Activate the AMR_ann environment then submit.
 
 AMR_annotate_csv.py
     Purpose:
@@ -40,7 +40,7 @@ AMR_annotate_csv.py
         Edit panaroo_csv, abricate_files, and output_filtered if needed, then
         run:
 
-            python AMR_annotate_csv.py
+            AMR_annotate_csv.py
 
 map_amr_and_panaroo.py
     Purpose:
@@ -65,9 +65,7 @@ rgi-annotation.pbs
         postpanaroo_fas
     Usage:
         Edit GFF_DIR, OUTPUT_BASE_DIR, THREADS, and environment settings if
-        needed, then submit:
-
-            qsub rgi-annotation.pbs
+        needed, then submit.
 
 rgi_result_analyse.py
     Purpose:
