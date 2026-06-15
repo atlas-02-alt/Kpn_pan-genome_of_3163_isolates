@@ -19,15 +19,13 @@ AMR_annotate_fasta.pbs
         Run ABRicate against NCBI, CARD, and ResFinder databases on the
         pan-genome representative FASTA.
     Main input:
-        pan_genome_reference_longCentroidID.fa
+        pan_genome_average_represent.fa
     Main outputs:
-        both_ncbi_results_longCentroidID.tab
-        both_card_results_longCentroidID.tab
-        both_resfinder_results_longCentroidID.tab
+        both_ncbi_results.tab
+        both_card_results.tab
+        both_resfinder_results.tab
     Usage:
-        Activate the AMR_ann environment and submit:
-
-            qsub AMR_annotate_fasta.pbs
+        Activate the AMR_ann environment and run
 
 AMR_annotate_csv.py
     Purpose:
