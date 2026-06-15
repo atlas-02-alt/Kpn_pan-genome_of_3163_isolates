@@ -33,7 +33,7 @@ run_Panaroo.pbs
     Purpose:
         Run Panaroo on GFF files to construct the pan-genome. The current
         command uses strict cleaning, pan alignment, MAFFT, a core threshold of
-        0.9, 48 threads, and writes results to ./result/.
+        0.9, 48 threads, and writes results to result.
     Usage:
         Put input .gff files in the working directory or adjust the -i path,
         activate the panaroo environment, then run:
@@ -45,7 +45,7 @@ update_gff.pbs
         Run panaroo-generate-gffs to update input GFF files for downstream
         Panaroo analysis.
     Usage:
-        Place source GFF files under ./GFFs/ or edit the -i path. Submit with:
+        Place source GFF files under GFFs or edit the -i path. Submit with:
 
             qsub update_gff.pbs
 
@@ -55,10 +55,10 @@ longCentroidID_ref_from_gml.py
         cluster to its longCentroidID and retrieving the corresponding DNA
         sequence from gene_data.csv.
     Main inputs:
-        ./both-align-results-strict-adv/cluster_centroid_summary.tsv
-        ./both-align-results-strict-adv/gene_data.csv
+        cluster_centroid_summary.tsv
+        gene_data.csv
     Main output:
-        ./both-align-results-strict-adv/complete_pan_genome_reference.fasta
+        complete_pan_genome_reference.fasta
     Usage:
         Edit gml_file, csv_file, tsv_file, and out_fasta if needed, then run:
 
@@ -71,9 +71,9 @@ average_cluster_sequence.py
         a consensus sequence by taking the most frequent non-gap base at each
         alignment position.
     Main input:
-        ./both-align-results-strict-adv/aligned_gene_sequences/
+        aligned_gene_sequences
     Main output:
-        ./both-align-results-strict-adv/pan_genome_represent.fa
+        pan_genome_represent.fa
     Usage:
         Edit msa_dir and out_fasta if needed, then run:
 

@@ -22,10 +22,10 @@ generate_align_reference.py
         alignment/variant extraction. Gene names are replaced with AMR names
         when found in amr_panaroo_dict.json.
     Main inputs:
-        ./both-align-results-strict-adv/core_gene_references/
-        ./both-align-results-strict-adv/amr_panaroo_dict.json
+        core_gene_references
+        amr_panaroo_dict.json
     Main output:
-        ./both-align-results-strict-adv/all_core_align_references.fasta
+        all_core_align_references.fasta
     Usage:
         Edit folder_path, output_file, and json_dict path if needed, then run:
 
@@ -36,9 +36,9 @@ ref_for_alignment.py
         Copy each core-gene reference sequence into its alignment subfolder as
         ref.fa.
     Main input:
-        ./both-align-results-strict-adv/core_gene_references/
+        core_gene_references
     Main output:
-        ./both-align-results-strict-adv/alignment/<gene>/ref.fa
+        ref.fa
     Usage:
 
             python ref_for_alignment.py

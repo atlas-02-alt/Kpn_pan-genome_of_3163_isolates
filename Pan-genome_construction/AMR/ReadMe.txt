@@ -19,11 +19,11 @@ AMR_annotate_fasta.pbs
         Run ABRicate against NCBI, CARD, and ResFinder databases on the
         pan-genome representative FASTA.
     Main input:
-        ./both-align-results-strict-adv/pan_genome_reference_longCentroidID.fa
+        pan_genome_reference_longCentroidID.fa
     Main outputs:
-        ./AMR_annotation/both_ncbi_results_longCentroidID.tab
-        ./AMR_annotation/both_card_results_longCentroidID.tab
-        ./AMR_annotation/both_resfinder_results_longCentroidID.tab
+        both_ncbi_results_longCentroidID.tab
+        both_card_results_longCentroidID.tab
+        both_resfinder_results_longCentroidID.tab
     Usage:
         Activate the AMR_ann environment and submit:
 
@@ -34,10 +34,10 @@ AMR_annotate_csv.py
         Combine ABRicate hits with Panaroo gene_presence_absence.csv and keep
         gene clusters with a hit in at least one AMR database.
     Main inputs:
-        ./both-align-results-strict-adv/gene_presence_absence.csv
-        ABRicate result tables under ./AMR_annotation/
+        gene_presence_absence.csv
+        ABRicate result tables under AMR_annotation
     Main output:
-        ./both-align-results-strict-adv/amr_gene_presence_absence_longCentroidID.csv
+        amr_gene_presence_absence_longCentroidID.csv
     Usage:
         Edit panaroo_csv, abricate_files, and output_filtered if needed, then
         run:
@@ -49,9 +49,9 @@ map_amr_and_panaroo.py
         Build a JSON dictionary mapping Panaroo gene-cluster IDs to AMR gene
         names. AMR names are prefixed with "amr_".
     Main input:
-        ./both-align-results-strict-adv/amr_gene_presence_absence.csv
+        amr_gene_presence_absence.csv
     Main output:
-        ./both-align-results-strict-adv/amr_panaroo_dict.json
+        amr_panaroo_dict.json
     Usage:
         Edit the input/output paths if needed, then run:
 
@@ -62,9 +62,9 @@ rgi-annotation.pbs
         Extract CDS/rRNA/tRNA sequences from post-Panaroo GFF files and run RGI
         annotation-related processing on the resulting FASTA files.
     Main input:
-        ./both-align-results-strict-adv/postpanaroo_gffs/
+        postpanaroo_gffs
     Main output:
-        ./both-align-results-strict-adv/postpanaroo_fas/
+        postpanaroo_fas
     Usage:
         Edit GFF_DIR, OUTPUT_BASE_DIR, THREADS, and environment settings if
         needed, then submit:
@@ -76,7 +76,7 @@ rgi_result_analyse.py
         Parse RGI JSON outputs and collect unique functional mutation models
         with selected model_type_id values.
     Main input:
-        ./both-align-results-strict-adv/rgi_results/
+        rgi_results
     Main output:
         all_functional_mutations.txt
     Usage:

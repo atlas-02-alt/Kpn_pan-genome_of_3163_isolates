@@ -20,11 +20,11 @@ vcf2matrix.py
         isolate, fills missing isolates with zero rows, filters rare features,
         and replaces AMR-related cluster names using amr_panaroo_dict.json.
     Main inputs:
-        ./both-align-results-strict-adv/ann_vcf/
-        ./Panaroo-DownStream-both/phenotypes.csv
-        ./both-align-results-strict-adv/amr_panaroo_dict.json
+        ann_vcf
+        phenotypes.csv
+        amr_panaroo_dict.json
     Main output:
-        Per-gene CSV files under ./both-align-results-strict-adv/feature_matrix/
+        Per-gene CSV files under feature_matrix
     Usage:
 
             python vcf2matrix.py
@@ -34,10 +34,10 @@ concat_core_feature_matrix.py
         Concatenate per-gene core-variant feature matrices into one final core
         feature matrix. Feature names are prefixed with the gene name.
     Main inputs:
-        ./both-align-results-strict-adv/feature_matrix/
-        ./Panaroo-DownStream-both/phenotypes.csv
+        feature_matrix
+        phenotypes.csv
     Main output:
-        ./Panaroo-DownStream-both/final_core_feature_matrix.csv
+        final_core_feature_matrix.csv
     Usage:
 
             python concat_core_feature_matrix.py
@@ -49,10 +49,10 @@ generate_dispensable_fm.py
         mapping exists, and features with too few 1s or too few 0s are reported
         as rare/uninformative.
     Main inputs:
-        ./both-align-results-strict-adv/dispensable_gene_sequences/
-        ./both-align-results-strict-adv/amr_panaroo_dict.json
+        dispensable_gene_sequences
+        amr_panaroo_dict.json
     Main output:
-        ./Panaroo-DownStream-both/final_dispensable_fm.csv
+        final_dispensable_fm.csv
     Usage:
 
             python generate_dispensable_fm.py

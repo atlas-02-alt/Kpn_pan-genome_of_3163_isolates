@@ -32,11 +32,11 @@ script.py
         that part of them form an external validation set. The train/test pool
         is then split 70:30 with stratification when possible.
     Main inputs:
-        ./Panaroo-DownStream-both/phenotypes.csv
-        ./Panaroo-DownStream-both/final_core_feature_matrix.csv
-        ./Panaroo-DownStream-both/final_dispensable_feature_matrix.csv
+        phenotypes.csv
+        final_core_feature_matrix.csv
+        final_dispensable_feature_matrix.csv
     Main outputs:
-        ./Panaroo-DownStream-both/ml_sort/<antibiotic>/
+        <antibiotic>
         including train/test/validation CSV files, model metrics, confusion
         matrices, and feature-importance ranking CSV files.
     Usage:

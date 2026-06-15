@@ -23,9 +23,9 @@ remove-.py
         Remove non-ATCG characters, including alignment gap characters, from
         FASTA/MSA sequences.
     Main input:
-        ./both-align-results-strict-adv/aligned_gene_sequences/
+        aligned_gene_sequences
     Main output:
-        ./both-align-results-strict-adv/gene_sequences/
+        gene_sequences
     Usage:
         Edit input_folder and output_folder if needed, then run:
 

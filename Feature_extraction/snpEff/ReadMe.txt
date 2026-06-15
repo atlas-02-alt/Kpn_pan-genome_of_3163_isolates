@@ -19,9 +19,9 @@ add_configure.py
         Append one genome configuration block per core-gene cluster to
         snpEff.config.
     Main input:
-        ./both-align-results-strict-adv/core_gene_references/
+        core_gene_references
     Main output:
-        Appended entries in ./snpEff/snpEff.config
+        Appended entries in snpEff.config
     Usage:
         If old custom entries exist in snpEff.config, clean them first. Then
         run:
@@ -30,11 +30,11 @@ add_configure.py
 
 make_genomes_folders.py
     Purpose:
-        Create one snpEff data folder per core gene under ./snpEff/data/.
+        Create one snpEff data folder per core gene under data.
     Main input:
-        ./both-align-results-strict-adv/core_gene_sequences_with_ref/
+        core_gene_sequences_with_ref
     Main output:
-        ./snpEff/data/<gene>/
+        <gene>
     Usage:
 
             python make_genomes_folders.py
@@ -42,11 +42,11 @@ make_genomes_folders.py
 ref_to_genomes_folder.py
     Purpose:
         Copy reference FASTA files from alignment folders into
-        ./snpEff/data/genomes/ using the gene/folder name.
+        genomes using the gene/folder name.
     Main input:
-        ./both-align-results-strict-adv/alignment/
+        alignment
     Main output:
-        ./snpEff/data/genomes/<gene>.fa
+        <gene>.fa
     Usage:
 
             python ref_to_genomes_folder.py
@@ -68,7 +68,7 @@ add_gff_info.py
     Main input:
         empty_files.txt
     Main output:
-        Modified ./data/<gene>/genes.gff files
+        Modified genes.gff files
     Usage:
         Edit file_list and NEW_LINE if needed, then run:
 

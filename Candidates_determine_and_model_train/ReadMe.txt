@@ -55,11 +55,11 @@ find_Kmed_avg.py
         over a series of thresholds, and selecting the threshold with the best
         ROC-AUC.
     Main inputs:
-        ./Panaroo-DownStream-both/statistics-test/chi_and_kw_core.json
-        ./Panaroo-DownStream-both/statistics-test/chi_and_kw_dispensable.json
-        ./Panaroo-DownStream-both/ml_sort/<antibiotic>/
+        chi_and_kw_core.json
+        chi_and_kw_dispensable.json
+        <antibiotic>
     Main outputs:
-        ./Panaroo-DownStream-both/feature_set_determine/5f_avgauc_train/result/<antibiotic>/
+        <antibiotic>
     Usage:
         Edit med_list and K_list. In practice this script may be run twice:
         first with a broad interval to inspect K-AUC trends, then with a

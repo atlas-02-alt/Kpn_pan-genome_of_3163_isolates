@@ -26,10 +26,10 @@ chi_analyse.py
         Run chi-square tests for each feature-antibiotic pair. Zero cells in
         the 2x2 contingency table are corrected by adding 0.5.
     Main inputs:
-        ./Panaroo-DownStream-both/phenotypes.csv
-        ./Panaroo-DownStream-both/final_core_feature_matrix.csv
+        phenotypes.csv
+        final_core_feature_matrix.csv
     Main output:
-        ./Panaroo-DownStream-both/statistics-test/core_chisquare.csv
+        core_chisquare.csv
     Usage:
 
             python chi_analyse.py
@@ -39,10 +39,10 @@ kw_analyse.py
         Run Kruskal-Wallis tests for each feature-antibiotic pair after
         filtering zero-variance features.
     Main inputs:
-        ./Panaroo-DownStream-both/phenotypes.csv
-        ./Panaroo-DownStream-both/final_core_feature_matrix.csv
+        phenotypes.csv
+        final_core_feature_matrix.csv
     Main output:
-        ./Panaroo-DownStream-both/statistics-test/core_kw.csv
+        core_kw.csv
     Usage:
 
             python kw_analyse.py
@@ -53,10 +53,10 @@ chi_kw.py
         Kruskal-Wallis tests at p < 0.05, then save the selected features in a
         JSON dictionary keyed by antibiotic.
     Main inputs:
-        ./Panaroo-DownStream-both/statistics-test/dispensable_chisquare.csv
-        ./Panaroo-DownStream-both/statistics-test/dispensable_kw.csv
+        dispensable_chisquare.csv
+        dispensable_kw.csv
     Main output:
-        ./Panaroo-DownStream-both/statistics-test/chi_and_kw_dispensable.json
+        chi_and_kw_dispensable.json
     Usage:
         Edit the input/output paths for core or dispensable features as needed,
         then run:
