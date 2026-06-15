@@ -5,10 +5,12 @@
 
 This repository contains scripts, trained models, and plotting utilities for a pan-genome-based analysis of 3,163 *Klebsiella pneumoniae* isolates. The workflow covers pan-genome construction, feature extraction, feature selection, candidate determination, model training, downstream analysis, and figure generation.
 
+Usage documentation for each script will be provided in the README file in the same folder.
+
 ## Workflow Overview
 
 ```text
-Genome assemblies
+Genome assemblies (annotated)
       |
       v
 Pan-genome construction and AMR annotation
