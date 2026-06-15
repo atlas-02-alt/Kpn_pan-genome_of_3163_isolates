@@ -1,15 +1,11 @@
 #!/bin/bash
-#PBS -N AMR_annotation_both
-#PBS -o ./AMR_annotation_both.out
-#PBS -e ./AMR_annotation_both.err
-#PBS -q fat
 #PBS -l nodes=1:ppn=1
 
 source activate AMR_ann
 cd ./
-abricate --db ncbi ./both-align-results-strict-adv/pan_genome_reference_longCentroidID.fa > ./AMR_annotation/both_ncbi_results_longCentroidID.tab
-abricate --summary ./AMR_annotation/both_ncbi_results_longCentroidID.tab > ./AMR_annotation/both_ncbi_summary_longCentroidID.tab
-abricate --db card ./both-align-results-strict-adv/pan_genome_reference_longCentroidID.fa > ./AMR_annotation/both_card_results_longCentroidID.tab
-abricate --summary ./AMR_annotation/both_card_results_longCentroidID.tab > ./AMR_annotation/both_card_summary_longCentroidID.tab
-abricate --db resfinder ./both-align-results-strict-adv/pan_genome_reference_longCentroidID.fa > ./AMR_annotation/both_resfinder_results_longCentroidID.tab
-abricate --summary ./AMR_annotation/both_resfinder_results_longCentroidID.tab > ./AMR_annotation/both_resfinder_summary_longCentroidID.tab
+abricate --db ncbi ./both-align-results-strict-adv/pan_genome_average_represent.fa > ./AMR_annotation/both_ncbi_results.tab
+abricate --summary ./AMR_annotation/both_ncbi_results.tab > ./AMR_annotation/both_ncbi_summary.tab
+abricate --db card ./both-align-results-strict-adv/pan_genome_average_represent.fa > ./AMR_annotation/both_card_results.tab
+abricate --summary ./AMR_annotation/both_card_results.tab > ./AMR_annotation/both_card_summary.tab
+abricate --db resfinder ./both-align-results-strict-adv/pan_genome_average_represent.fa > ./AMR_annotation/both_resfinder_results.tab
+abricate --summary ./AMR_annotation/both_resfinder_results.tab > ./AMR_annotation/both_resfinder_summary.tab
