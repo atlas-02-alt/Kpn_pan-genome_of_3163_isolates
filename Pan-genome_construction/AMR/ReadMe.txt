@@ -43,6 +43,11 @@ AMR_annotate_csv.py
             AMR_annotate_csv.py
 
 map_amr_and_panaroo.py
+    ※Before running this code, please insert a new column at the beginning 
+    of amr_gene_presence_absence.csv and manually enter the annotation result 
+    for each gene cluster. The final selection of annotation sources or 
+    database results to be adopted for each gene cluster should be determined 
+    by the user.
     Purpose:
         Build a JSON dictionary mapping Panaroo gene-cluster IDs to AMR gene
         names. AMR names are prefixed with "amr_".
