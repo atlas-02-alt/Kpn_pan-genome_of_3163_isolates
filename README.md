@@ -1,10 +1,10 @@
 # Kpn Pan-Genome Analysis of 3,163 Isolates
 
-This repository contains scripts, trained models, plotting utilities, and necessary related data for a pan-genome-based analysis of 3,163 *Klebsiella pneumoniae* isolates. The workflow covers pan-genome construction, feature extraction, feature selection, candidate determination, model training, downstream analysis, and figure generation. AMR phenotypes used in this workflow and some analysis outputs generated from this study are also included.
+This repository contains scripts, trained models, plotting utilities, and necessary related data for a pan-genome-based analysis of 3,163 *Klebsiella pneumoniae* isolates. The workflow covers pan-genome construction, feature extraction, feature selection, candidate determination, model training, downstream analysis, and figure generation. AMR phenotypes used in this workflow and some analytical outputs generated from this study are also included.
 
 ## Directory Guide
 
-The repository is organized by analysis stage, so each top-level directory represents one major part of the pipeline.
+The repository is organized by analysis stage, so each top-level code directory represents one major part of the pipeline.
 
 | Directory type | Directory | Purpose |
 | --- | --- | --- |
