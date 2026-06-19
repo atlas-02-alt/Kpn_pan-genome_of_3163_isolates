@@ -14,6 +14,7 @@ The repository is organized by analysis stage, so each top-level directory repre
 | `Candidates_determine_and_model_train/` | Determines candidate features, prepares selected feature matrices, trains models, tests and validates performance, and saves model artifacts. |
 | `Further_analyzation/` | Performs downstream biological analyses, including candidate-feature prioritization and transposon-associated genomic pattern analysis. |
 | `Plot/` | Contains scripts for generating main and supplementary figures. |
+| **Data files and derived outputs** | **The entries below contain data files, trained models, and candidate sequence resources.** |
 | `AMR_phenotypes/` | Contains AMR phenotype data for HuiNet isolates (with GN-prefixed sample IDs) and PATRIC isolates (with GC-prefixed sample IDs); some PATRIC phenotypes are not available in the source database. |
 | `Trained_models/` | Stores serialized trained model artifacts for 17 antimicrobial phenotypes. |
 | `Candidate_feature_matrices/` | Selected candidate feature matrices for model training, testing and validation. |
