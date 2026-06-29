@@ -14,7 +14,6 @@ The repository is organized by analysis stage, so each top-level code directory 
 | `Candidates_determine_and_model_train/` | Determines candidate features, prepares selected feature matrices, trains models, tests and validates performance, and saves model artifacts. | Code |
 | `Further_analyzation/` | Performs downstream biological analyses, including candidate-feature prioritization and transposon-associated genomic pattern analysis. | Code |
 | `Plot/` | Contains scripts for generating main and supplementary figures. | Code |
-| `AMR_phenotypes/` | Contains AMR phenotype data for HuiNet isolates (with GN-prefixed sample IDs) and PATRIC isolates (with GC-prefixed sample IDs); some PATRIC phenotypes are not available in the source database. | Input Data |
 | `Annotated_variants_in_core_genes/` | All variants in core genes called with BWA and annotated with SnpEff. | Intermediate files |
 | `Candidate_feature_matrices/` | Selected candidate feature matrices for model training, testing and validation. | Intermediate files |
 | `Trained_models/` | Trained model files for 17 antimicrobial phenotypes. | Result |
