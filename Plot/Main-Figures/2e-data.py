@@ -1,6 +1,12 @@
 import os
 import gzip
 import sys
+from collections import Counter
+
+UNHANDLED_OUTPUT = "2e-data.unhandled_samples.tsv"
+OUTLIER_OUTPUT = "2e-data.outliers.tsv"
+OUTLIER_ID_OUTPUT = "2e-data.outlier_sample_ids.tsv"
+VERBOSE = False
 
 def is_vcf(filename):
     return filename.endswith(".vcf") or filename.endswith(".vcf.gz")
@@ -23,11 +29,47 @@ def classify_variant(ref, alt):
     else:
         return None
 
+def sample_alt_indexes(format_field, sample_field, alt_count, unhandled, context):
+    format_keys = format_field.split(':')
+    sample_values = sample_field.split(':')
+    alt_indexes = set()
+
+    if "GT" not in format_keys:
+        unhandled.append(context + ["FORMAT_without_GT", format_field, sample_field])
+        return alt_indexes
+
+    gt_index = format_keys.index("GT")
+    if gt_index >= len(sample_values):
+        unhandled.append(context + ["sample_missing_GT_value", format_field, sample_field])
+        return alt_indexes
+
+    gt = sample_values[gt_index]
+    if gt in (".", ""):
+        return alt_indexes
+
+    alleles = gt.replace("|", "/").split("/")
+    for allele in alleles:
+        if allele in (".", ""):
+            continue
+        if not allele.isdigit():
+            unhandled.append(context + ["non_numeric_GT_allele", format_field, sample_field])
+            continue
+        allele_number = int(allele)
+        if allele_number == 0:
+            continue
+        if allele_number > alt_count:
+            unhandled.append(context + ["GT_allele_exceeds_ALT_count", format_field, sample_field])
+            continue
+        alt_indexes.add(allele_number)
+
+    return alt_indexes
+
 def count_variants_in_directory(directory):
 
     # check
     outliers = []
     outliers_ids = []
+    unhandled_samples = []
 
     # Initialize variant-type counters: each variant type has three categories: both, GN_only, and GC_only
     variant_counts = {
@@ -39,7 +81,8 @@ def count_variants_in_directory(directory):
     }
 
     for filename in os.listdir(directory):
-        print(f"Processing file: {filename}")
+        if VERBOSE:
+            print(f"Processing file: {filename}")
         if not is_vcf(filename):
             continue
         filepath = os.path.join(directory, filename)
@@ -48,7 +91,7 @@ def count_variants_in_directory(directory):
             gc_indices = []  # Column indices for samples starting with GC, based on the full fields
             header_parsed = False
 
-            for line in f:
+            for line_number, line in enumerate(f, start=1):
                 # Parse the header line to get sample names and corresponding column indices
                 if line.startswith('#CHROM'):
                     fields = line.strip().split('\t')
@@ -88,46 +131,85 @@ def count_variants_in_directory(directory):
 
                 fields = line.strip().split('\t')
                 ref = fields[3]
-                alt = fields[4]
+                alt_alleles = fields[4].split(',')
+                format_field = fields[8] if len(fields) > 8 else ""
+                alt_count = len(alt_alleles)
+                gn_alt_indexes = set()
+                gc_alt_indexes = set()
 
-                # Determine whether a sample has this variant, meaning it is not .:.
-                def has_variant(col_idx):
+                # VCF GT uses 0 for REF and 1..N for the ALT alleles in order.
+                def collect_alt_indexes(col_idx):
                     if col_idx >= len(fields):
-                        return False
-                    return fields[col_idx] != ".:."
+                        return set()
+                    context = [filename, str(line_number), fields[1], ref, fields[4], str(col_idx)]
+                    return sample_alt_indexes(format_field, fields[col_idx], alt_count, unhandled_samples, context)
 
-                vt = classify_variant(ref, alt)
-                if vt is None:
-                    continue
+                for col_idx in gn_indices:
+                    gn_alt_indexes.update(collect_alt_indexes(col_idx))
+                for col_idx in gc_indices:
+                    gc_alt_indexes.update(collect_alt_indexes(col_idx))
 
-                # Check whether GN and GC samples have this variant
-                gn_has = any(has_variant(col_idx) for col_idx in gn_indices)
-                gc_has = any(has_variant(col_idx) for col_idx in gc_indices)
+                for alt_index, alt in enumerate(alt_alleles, start=1):
+                    vt = classify_variant(ref, alt)
+                    if vt is None:
+                        unhandled_samples.append([
+                            filename, str(line_number), fields[1], ref, fields[4],
+                            "ALT_" + str(alt_index), "unclassified_variant", format_field, alt
+                        ])
+                        continue
 
-                # Count into the corresponding category
-                if gn_has and gc_has:
-                    variant_counts[vt]["both"] += 1
-                elif gn_has:
-                    variant_counts[vt]["GN_only"] += 1
-                elif gc_has:
-                    variant_counts[vt]["GC_only"] += 1
-                else:
-                    outliers.append([filename,fields[1],fields[3],fields[4]])  # Variants appearing in neither GN nor GC are treated as outliers
+                    # Check whether GN and GC samples have this ALT allele
+                    gn_has = alt_index in gn_alt_indexes
+                    gc_has = alt_index in gc_alt_indexes
 
-            print(len(gn_indices), len(gc_indices))
+                    # Count into the corresponding category
+                    if gn_has and gc_has:
+                        variant_counts[vt]["both"] += 1
+                    elif gn_has:
+                        variant_counts[vt]["GN_only"] += 1
+                    elif gc_has:
+                        variant_counts[vt]["GC_only"] += 1
+                    else:
+                        outliers.append([filename, fields[1], fields[3], alt])  # Variants appearing in neither GN nor GC are treated as outliers
 
-    for i in outliers:
-        print(i)
+            if VERBOSE:
+                print(len(gn_indices), len(gc_indices))
 
-    print(outliers_ids)
+    if outliers:
+        with open(OUTLIER_OUTPUT, "w") as out:
+            out.write("file\tpos\tref\talt\n")
+            for row in outliers:
+                out.write("\t".join(row) + "\n")
+        print(f"Outlier variants written to {OUTLIER_OUTPUT}: {len(outliers)}")
+    else:
+        print("No outlier variants found.")
+
+    if outliers_ids:
+        outlier_id_counts = Counter(outliers_ids)
+        with open(OUTLIER_ID_OUTPUT, "w") as out:
+            out.write("sample_id\tcount\n")
+            for sample_id, count in sorted(outlier_id_counts.items()):
+                out.write(f"{sample_id}\t{count}\n")
+        print(f"Outlier sample IDs written to {OUTLIER_ID_OUTPUT}: {len(outlier_id_counts)}")
+    else:
+        print("No outlier sample IDs found.")
+
+    if unhandled_samples:
+        with open(UNHANDLED_OUTPUT, "w") as out:
+            out.write("file\tline\tpos\tref\talt\tcolumn_or_alt\treason\tformat\tsample_value\n")
+            for row in unhandled_samples:
+                out.write("\t".join(row) + "\n")
+        print(f"Unhandled sample/variant values written to {UNHANDLED_OUTPUT}: {len(unhandled_samples)}")
+    else:
+        print("No unhandled sample/variant values found.")
 
     return variant_counts
 
 # Change the path to your VCF folder path
-vcf_dir = "./both-align-results-strict-adv/ann_vcf/"
+vcf_dir = "./Annotated_variants_in_core_genes/"
 variant_counts = count_variants_in_directory(vcf_dir)
 
-print("🧬 Total variant counts across all VCF files:")
+print("Total variant counts across all VCF files:")
 print("\n" + "="*60)
 for vtype in ["SNP", "Insertion", "Deletion", "Complex", "SV"]:
     counts = variant_counts[vtype]
