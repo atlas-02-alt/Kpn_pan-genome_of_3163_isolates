@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 # === Read data ===
-fpath="./Figures-re\\fig5相关数据\\5a-group_258.csv"
+fpath="./Figures-re\\fig5-related-data\\5a-group_258.csv"
 features = pd.read_csv(fpath, index_col=0)
-ppath="./Figures-re\\fig5相关数据\\supplement\\phenotypes_3163.csv"
+ppath="./Figures-re\\fig5-related-data\\supplement\\phenotypes_3163.csv"
 phenotypes = pd.read_csv(ppath, index_col=0)
 
 # === Set the target gene to plot===

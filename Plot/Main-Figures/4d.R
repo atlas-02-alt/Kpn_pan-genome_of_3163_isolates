@@ -16,7 +16,10 @@ plot_feature_heatmap <- function(
   gene_presence_absence <- fread(feature_path, sep = ",", stringsAsFactors = FALSE)
   phenotype_info <- fread(phenotype_path, sep = ",", stringsAsFactors = FALSE)
 
-  gene_presence_absence_matrix <- as.data.frame(gene_presence_absence[, -sample_col, with = FALSE])
+  feature_cols <- setdiff(names(gene_presence_absence), sample_col)
+  gene_presence_absence_matrix <- as.data.frame(
+    gene_presence_absence[, feature_cols, with = FALSE]
+  )
   rownames(gene_presence_absence_matrix) <- gene_presence_absence[[sample_col]]
 
   gene_matrix <- as.matrix(gene_presence_absence_matrix)
@@ -46,7 +49,7 @@ plot_feature_heatmap <- function(
       cluster_cols = TRUE,
       clustering_distance_rows = "binary",
       clustering_distance_cols = "binary",
-      clustering_method = "complete",
+      clustering_method = "ward.D2",
       treeheight_row = 35,
       treeheight_col = 35,
       annotation_col = annotation_data,
@@ -78,33 +81,9 @@ plot_feature_heatmap <- function(
 }
 
 plot_feature_heatmap(
-  feature_path = "fig5d-result/fig5c-amk-feature-matrix.csv",
-  phenotype_path = "fig5d-result/fig5c-amk-phenotype-matrix-raw.csv",
-  antibiotics = c("AMK"),
-  out_prefix = "fig5d-result/fig5c-amk-heatmap.R",
-  title = "AMK Feature Presence/Absence Heatmap"
-)
-
-plot_feature_heatmap(
-  feature_path = "fig5d-result/fig5c-Carb2-feature-matrix.csv",
-  phenotype_path = "fig5d-result/fig5c-Carb2-phenotype-matrix-raw.csv",
-  antibiotics = c("IPM", "MEM"),
-  out_prefix = "fig5d-result/fig5c-Carb2-heatmap.R",
-  title = "Carbapenem Feature Presence/Absence Heatmap"
-)
-
-plot_feature_heatmap(
   feature_path = "fig5d-result/fig5c-Ceph3-feature-matrix.csv",
   phenotype_path = "fig5d-result/fig5c-Ceph3-phenotype-matrix-raw.csv",
   antibiotics = c("CAZ", "CXM", "CZO"),
-  out_prefix = "fig5d-result/fig5c-Ceph3-heatmap.R",
-  title = "Third-generation Cephalosporin Feature Presence/Absence Heatmap"
-)
-
-plot_feature_heatmap(
-  feature_path = "fig5d-result/fig5c-Quin-feature-matrix.csv",
-  phenotype_path = "fig5d-result/fig5c-Quin-phenotype-matrix-raw.csv",
-  antibiotics = c("CIP", "LVX"),
-  out_prefix = "fig5d-result/fig5c-Quin-heatmap.R",
-  title = "Quinolone Feature Presence/Absence Heatmap"
+  out_prefix = "fig5d-result/fig5c-Ceph3-heatmap",
+  title = "Cephalosporin Feature Presence/Absence Heatmap"
 )

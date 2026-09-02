@@ -143,7 +143,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--fasta",
-        default=r"./Figures-re\fig4部分相关数据\supplement\dispensable_genes_17meds_longCentroidID_prot.fa",
+        default=r"./Figures-re\fig4-related-data\supplement\dispensable_genes_17meds_longCentroidID_prot.fa",
         help="Input FASTA path.",
     )
     parser.add_argument(

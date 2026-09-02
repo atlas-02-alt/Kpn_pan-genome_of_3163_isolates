@@ -4,7 +4,7 @@ import pandas as pd
 from statannotations.Annotator import Annotator
 
 # Read the file
-file_path = "./Figures-re/fig4部分相关数据/cd-ablation_cmp.xlsx"
+file_path = "./Figures-re/fig4-related-data/cd-ablation_cmp.xlsx"
 df = pd.read_excel(file_path,sheet_name='Sheet1')
 columns_to_plot = ['test-auc', 'known-test-auc', 'validation-auc', 'known-vali-auc']
 df = df.iloc[:, 2:]

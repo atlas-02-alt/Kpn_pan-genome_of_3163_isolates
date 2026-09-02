@@ -10,7 +10,7 @@ mpl.rcParams.update({
 })
 
 # Read data
-path = "./Figures-re/fig4部分相关数据/a-candidates_distribution.xlsx"
+path = "./Figures-re/fig4-related-data/a-candidates_distribution.xlsx"
 df = pd.read_excel(path, sheet_name='med', index_col=0)
 
 # Select two columns; this assumes the first two columns and can be modified as needed

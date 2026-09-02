@@ -66,7 +66,7 @@ def transform(fm):
 
 if __name__=='__main__':
 
-    file_path="./Figures-re\\fig5相关数据\\fucK.ann.vcf"
+    file_path="./Figures-re\\fig5-related-data\\fucK.ann.vcf"
     fm1=vcf_process(file_path)
     fm2=feature_matrix(fm1)
     fm3=transform(fm2)

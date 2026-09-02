@@ -1,41 +1,68 @@
+import json
 import os
 
-def count_genes_in_gff(gff_file):
-    count = 0
-    with open(gff_file, 'r') as f:
-        for line in f:
-            if line.startswith("#"):
-                continue
-            parts = line.strip().split('\t')
-            if len(parts) < 3:
-                continue
-            feature_type = parts[2]
-            # Count CDS entries here; modify as needed
-            if feature_type == "CDS":
-                count += 1
-    return count
+def list_files(directory):
+    return os.listdir(directory)
 
-def main(input_dir, output_file):
-    gene_counts = []
-    for filename in os.listdir(input_dir):
-        if filename.endswith(".gff"):
-            filepath = os.path.join(input_dir, filename)
-            sample_id = os.path.splitext(filename)[0]
-            count = count_genes_in_gff(filepath)
-            gene_counts.append((sample_id, count))
+print("start reading dict")
+amr_dict_path = "./amr_panaroo_dict.json"
+with open(amr_dict_path, 'r', encoding='utf-8') as file:
+    # Read the JSON file and convert it to a dictionary
+    data = json.load(file)
+amr_keys = data.keys()
 
-    # Sort by gene count in descending order
-    gene_counts.sort(key=lambda x: x[1], reverse=True)
+print("start reading file lists")
+core_files_with_ref = list_files("./core_gene_sequences_with_ref/")
+new_core_files_with_ref = [f.removesuffix('.aln.fas') for f in core_files_with_ref]
+core_files_without_ref = list_files("./core_gene_sequences_without_ref/")
+new_core_files_without_ref = [f.removesuffix('.aln.fas') for f in core_files_without_ref]
+print(new_core_files_without_ref)
+rare_files = list_files("./rare_gene_sequences/")
+new_rare_files = [f.removesuffix('.aln.fas') for f in rare_files]
+dispensable_files = list_files("./dispensable_gene_sequences/")
+new_dispensable_files = [f.removesuffix('.aln.fas') for f in dispensable_files]
 
-    # Write the output file
-    with open(output_file, 'w') as out_f:
-        for sample_id, count in gene_counts:
-            out_f.write(f"{sample_id} {count}\n")
+print("start counting")
+core_count = 0
+dis_count = 0
+rare_count = 0
+non_exiseting = []
+for i in data:
+    flags=0
+    if i in new_core_files_with_ref or i in new_core_files_without_ref:
+        core_count+=1
+        flags=1
+    else:
+        v=data[i]
+        if v in new_core_files_with_ref or v in new_core_files_without_ref:
+            core_count+=1
+            flags=1
+    if i in new_rare_files:
+        rare_count+=1
+        flags=2
+    else:
+        v=data[i]
+        if v in new_rare_files:
+            rare_count+=1
+            flags=2
+    if i in new_dispensable_files and i not in new_rare_files:
+        dis_count+=1
+        flags=3
+    else:
+        v=data[i]
+        if v in new_dispensable_files and v not in new_rare_files:
+            dis_count+=1
+            flags=3
+    print(i)
+    if flags==0:
+        print("not exist")
+        non_exiseting.append(i)
+    elif flags==1:
+        print("core")
+    elif flags==2:
+        print("rare")
+    elif flags==3:
+        print("dis")
 
-    print(f"Counting complete; results written to {output_file}")
-
-if __name__ == "__main__":
-    # You can modify the path below
-    input_directory = "./GFFs/"  # Directory containing GFF files
-    output_txt = "./sample_gene_counts.txt"
-    main(input_directory, output_txt)
+print(core_count,dis_count,rare_count)
+#Composition of 296 items: 22 core, 187 dispensable, 22 rare, and the remaining invalid. Total: 296.

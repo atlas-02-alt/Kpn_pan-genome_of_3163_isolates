@@ -3,7 +3,7 @@ import seaborn as sns
 import pandas as pd
 
 # Read the file
-file_path="./Figures-re/fig4部分相关数据/cd-ablation_cmp.xlsx"
+file_path="./Figures-re/fig4部分-related-data/cd-ablation_cmp.xlsx"
 df = pd.read_excel(file_path,sheet_name='Sheet1')
 df = df.iloc[:, 2:]
 df.set_index(df.columns[0], inplace=True)
